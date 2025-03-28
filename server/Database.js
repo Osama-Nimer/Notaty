@@ -21,7 +21,7 @@ class Database {
             note["updatedDate"] = new Date();
             let newNot = new Note(note);
             newNot.save().then(doc => {
-                resolve( doc);
+                resolve(doc);
             }).catch(err => {
                 reject(err);
             })
@@ -30,7 +30,7 @@ class Database {
     }
 
     getNotes() {
-        return new Promise((resolve , reject) =>{
+        return new Promise((resolve, reject) => {
             Note.find({}).then(data => {
                 resolve(data);
             }).catch(err => {
@@ -40,36 +40,47 @@ class Database {
     }
 
     GetNoteById(id) {
-        return new Promise((resolve , reject) =>
-        {
-            Note.findById(id).then(data=>{
+        return new Promise((resolve, reject) => {
+            Note.findById(id).then(data => {
                 resolve(data);
-            }).catch(err=>{
+            }).catch(err => {
                 reject(err);
             })
         })
     }
 
-    updteNote(note){
-        return new Promise((resolve , reject) =>{
+    updteNote(note) {
+        return new Promise((resolve, reject) => {
             note["updatedDate"] = new Date();
-            Note.findByIdAndUpdate(note["_id"] , note)
-            .then(data =>{
-                resolve(data);
-            })
-            .catch(err=>{
-                reject(err);
-            });
+            Note.findByIdAndUpdate(note["_id"], note)
+                .then(data => {
+                    resolve(data);
+                })
+                .catch(err => {
+                    reject(err);
+                });
         })
     }
 
 
     DeleteNote(id) {
-        return new Promise((resolve , reject) =>
-        {
-            Note.findByIdAndDelete(id).then(data=>{
+        return new Promise((resolve, reject) => {
+            Note.findByIdAndDelete(id).then(data => {
                 resolve(data);
-            }).catch(err=>{
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
+
+    getNotesByTitle(noteTitle) {
+        return new Promise((resolve, reject) => {
+            const query  = { title : {$regex : new RegExp(noteTitle , 'i')} };
+            Note.find(query)
+            .then(data => {
+                resolve(data);
+            }).catch(err => {
                 reject(err);
             });
         });

@@ -24,15 +24,29 @@ app.post('/notes' ,(req , res) => {
 
 
 app.get('/notes',(req,res)=>{
-    db.getNotes().then(data => {
+    const { title } = req.query;
+    if(title) {
+        db.getNotesByTitle(title)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err =>{
+            res.status(500).send(err);
+        });
+    }
+    else{  
+    db.getNotes()
+    .then(data => {
         res.send(data);
-    }).catch(err =>{
-        res.status(500).send(err);
     })
+    .catch(err =>{
+        res.status(500).send(err);
+    });
+}
 });
 
 
-app.get('/note/:id',(req,res)=>{
+app.get('/notes/:id',(req,res)=>{
     var { id } = req.params;
     db.GetNoteById(id).then(data=>{
         if(!data){
@@ -61,7 +75,7 @@ app.put('/notes' , (req , res) => {
 });
 
 
-app.delete('/note/:id' ,(req,res) => {
+app.delete('/notes/:id' ,(req,res) => {
     db.DeleteNote(req.body)
     .then(data => {
         if(!data)
