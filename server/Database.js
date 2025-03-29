@@ -62,16 +62,18 @@ class Database {
         })
     }
 
-
-    DeleteNote(id) {
+    deleteNote(noteId) {
         return new Promise((resolve, reject) => {
-            Note.findByIdAndDelete(id).then(data => {
-                resolve(data);
-            }).catch(err => {
-                reject(err);
+          Note.findByIdAndDelete(noteId)
+            .then((data) => {
+              console.log("deleted document:", data);
+              resolve(data);
+            })
+            .catch((error) => {
+              reject(error);
             });
         });
-    }
+      }
 
 
     getNotesByTitle(noteTitle) {

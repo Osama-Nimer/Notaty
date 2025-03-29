@@ -23,26 +23,26 @@ app.post('/notes' ,(req , res) => {
 });
 
 
-app.get('/notes',(req,res)=>{
+app.get('/notes', (req, res) => {
     const { title } = req.query;
     if(title) {
         db.getNotesByTitle(title)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err =>{
-            res.status(500).send(err);
-        });
+            .then(data => {
+                res.send(data);
+            })
+            .catch(error => {
+                res.status(500).send(error);
+            });
+
+    } else {
+        db.getNotes()
+            .then(data => {
+                res.send(data);
+            })
+            .catch(error => {
+                res.status(500).send(error);
+            })
     }
-    else{  
-    db.getNotes()
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err =>{
-        res.status(500).send(err);
-    });
-}
 });
 
 
@@ -75,17 +75,15 @@ app.put('/notes' , (req , res) => {
 });
 
 
-app.delete('/notes/:id' ,(req,res) => {
-    db.DeleteNote(req.body)
+app.delete('/notes/:id', (req, res) => {
+    const { id } = req.params;
+    db.deleteNote(id)
     .then(data => {
-        if(!data)
-            res.status(404).send("Note Already dose not exist !!");
-        else
-            res.send(data);
+        res.send(data);
     })
-    .catch(err =>{
-        res.status(500).send(err);
-    });
+    .catch(error => {
+        res.status(500).send(error);
+    })
 });
 
 app.listen(3000, () => {

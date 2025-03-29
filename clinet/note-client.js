@@ -1,13 +1,12 @@
-const url = "http://localhost:3000/";
+const url = "http://localhost:3000";
 
-async function addNote(note){
-    const res = await fetch(`${url}/notes`,
-        {
-            method:"POST",//default :: GET 
-            headers:{"Content-Type" : "application/jspn"},
-            body: JSON.stringify(note)
-        });
-        return (res);
+async function addNote(noteData) {
+    const response = await fetch(`${url}/notes`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(noteData)
+    });
+    return response;
 }
 
 
@@ -22,22 +21,22 @@ async function updateNote(note){
 }
 
 
-async function deleteNote(id){
-    const res = await fetch(`${url}/notes/${id}`,{
-        method : "DELETE"
+async function deleteNote(noteId) {
+    const response = await fetch(`${url}/notes/${noteId}`, {
+        method: "DELETE"
     });
-    return (res); 
+    return response;
 }
-
 async function getNoteById(id){
     const res = await fetch(`${url}/notes/${id}`);
-    return (res);
+    return (res.json());
 }
 
-async function getAllNotes(title){
+async function getNotes(title) {
     let nUrl = `${url}/notes`;
-    if(!title)
-        nUrl += `/?title=${title}`;
+    if (title) { 
+        nUrl += `/?title=${encodeURIComponent(title)}`;
+    }
     const res = await fetch(nUrl);
-    return (res);
+    return res.json();
 }
