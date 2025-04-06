@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const Database = require("./Database");
 const db = new Database();
-
+const port = process.env.PORT || 3000;
 app.use(cors()); 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({extended : false})); 
@@ -86,7 +86,7 @@ app.delete('/notes/:id', (req, res) => {
     })
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("server has started on port 3000...");
     db.connect();
 });

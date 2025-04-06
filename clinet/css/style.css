@@ -89,7 +89,8 @@ tr:hover td {
 /* New Note and Updated Note Animation */
 
 @keyframes new-row {
-  0% {
-    background-color: #ffd700;
+  5% {
+    background-color: #00ff1e;
+
   }
 }
