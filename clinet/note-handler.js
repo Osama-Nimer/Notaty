@@ -19,9 +19,11 @@ function    updateNotesTable(serch)
             cell2.innerHTML = note["content"];
             cell3.innerHTML = note["updatedDate"];
 
-            cell4.innerHTML = `<a href="#"><img src="/clinet/images/edit.png" style="width:22px;"><a>
-                               <a onclick="confirmDeleteNote('${note["_id"]}')" 
-                               href="#"><img src="/clinet/images/delete.png" style="width:22px;"><a>`
+            cell4.innerHTML = `<a onclick="confirmDeleteNote('${note["_id"]}')" href="#">
+                                <img src="./images/delete.png" style="width:22px;"></a>
+                               <a onclick="openUpdateModal()" href="#">
+                                <img src="./images/edit.png" style="width:22px;">
+                               </a>`
         });
     });
 }
@@ -45,4 +47,6 @@ function    confirmDeleteNote(id)
         });
     }
 }
+
+
 

@@ -4,6 +4,8 @@ function    openAddModal()
     var closeAdd = document.getElementById("closeAdd");
     var cancelBtn = document.getElementById("cancelAddNoteBtn");
     
+    clearAddWin();
+
     modal.style.display = "block";
     closeAdd.onclick = () => {
         modal.style.display = "none";
@@ -36,4 +38,34 @@ function saveNewNote() {
         console.log(error);
         document.getElementById("addError").innerHTML = error;
     })
+}
+
+function    clearAddWin(){
+    document.getElementById('addTitle').value = "";
+    document.getElementById('addContent').value= "";
+    document.getElementById('addError').innerText = "";
+}
+
+
+function    clearEditWin(){
+    document.getElementById('editTitle').value = "";
+    document.getElementById('editContent').value= "";
+    document.getElementById('editError').innerText = "";
+}
+
+
+function openUpdateModal(){
+    const modal = document.getElementById("editNoteModal");
+    var closeEdit = document.getElementById("closeEdit");
+    var cancelBtn = document.getElementById("cancelEditNoteBtn");
+    
+    clearEditWin();
+
+    modal.style.display = "block";
+    closeEdit.onclick = () => {
+        modal.style.display = "none";
+    }
+    cancelBtn.onclick = () => {
+        modal.style.display = "none";
+    }
 }
